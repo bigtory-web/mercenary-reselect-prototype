@@ -7,16 +7,18 @@
     <style>
       :root {
         color-scheme: dark;
-        --bg: #0a0d16;
-        --panel: #12182b;
-        --line: rgba(255, 255, 255, 0.11);
-        --text: #eef2ff;
-        --muted: #a6b0d2;
-        --accent: #6dd7ff;
-        --accent-2: #8d75ff;
-        --gold: #ffcf70;
-        --good: #74e39f;
-        --shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+        --bg: #09111d;
+        --panel: #111a2b;
+        --panel-2: #162238;
+        --line: rgba(255, 255, 255, 0.1);
+        --text: #f3f6ff;
+        --muted: #9faece;
+        --accent: #57c6ff;
+        --accent-2: #8470ff;
+        --gold: #ffcb6b;
+        --good: #78e4aa;
+        --danger: #ff8f8f;
+        --shadow: 0 16px 30px rgba(0, 0, 0, 0.28);
       }
 
       * {
@@ -26,78 +28,211 @@
       body {
         margin: 0;
         min-height: 100vh;
+        overflow: hidden;
         font-family: "Segoe UI", "Noto Sans KR", sans-serif;
         background:
-          radial-gradient(circle at top, rgba(109, 215, 255, 0.12), transparent 30%),
-          linear-gradient(180deg, #090b14 0%, #0d1220 100%);
+          radial-gradient(circle at top left, rgba(87, 198, 255, 0.16), transparent 24%),
+          linear-gradient(180deg, #08101b 0%, #0d1626 100%);
         color: var(--text);
-        overflow: hidden;
       }
 
-      main {
-        width: min(430px, 100%);
+      .app {
+        width: min(1460px, 100%);
         height: 100vh;
         margin: 0 auto;
-        padding: 12px;
+        padding: 18px;
         display: grid;
-        grid-template-rows: auto minmax(0, 1fr) minmax(0, 1fr);
-        gap: 10px;
+        grid-template-rows: auto minmax(0, 1fr);
+        gap: 14px;
       }
 
-      .hero {
-        padding: 2px 2px 0;
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 20px;
       }
 
       h1 {
-        margin: 0 0 4px;
-        font-size: 22px;
-        line-height: 1.15;
+        margin: 0 0 6px;
+        font-size: 34px;
+        line-height: 1.1;
       }
 
       .sub {
+        max-width: 720px;
         margin: 0;
         color: var(--muted);
-        font-size: 12px;
-        line-height: 1.35;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .header-note {
+        color: var(--gold);
+        font-size: 13px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .workspace {
+        min-height: 0;
+        display: grid;
+        grid-template-columns: 360px minmax(0, 1fr);
+        gap: 14px;
       }
 
       .panel {
         min-height: 0;
-        padding: 12px;
-        border-radius: 16px;
         border: 1px solid var(--line);
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+        border-radius: 22px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
         box-shadow: var(--shadow);
       }
 
-      .panel-title {
-        margin: 0 0 8px;
-        font-size: 15px;
-        font-weight: 700;
+      .left-panel {
+        padding: 16px;
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr);
+        gap: 12px;
       }
 
-      .meta {
+      .right-panel {
+        padding: 18px;
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        gap: 14px;
+      }
+
+      .section-head {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 8px;
-        margin-bottom: 8px;
-        font-size: 12px;
-        color: var(--muted);
+        gap: 12px;
       }
 
-      .chance-wrap {
+      .section-title {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .section-copy {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .target-list {
+        min-height: 0;
+        display: grid;
+        gap: 10px;
+        overflow: auto;
+        padding-right: 4px;
+      }
+
+      .target-list::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .target-list::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+      }
+
+      .target-item {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.03);
+        color: inherit;
+        text-align: left;
+        cursor: pointer;
+      }
+
+      .target-item.active {
+        border-color: rgba(87, 198, 255, 0.7);
+        box-shadow: inset 0 0 0 1px rgba(87, 198, 255, 0.2);
+        background: linear-gradient(135deg, rgba(87, 198, 255, 0.12), rgba(132, 112, 255, 0.08));
+      }
+
+      .target-top {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
+        margin-bottom: 10px;
       }
 
-      .chance {
+      .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        font-size: 20px;
+        font-weight: 800;
+        color: #fff;
+        background:
+          radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.25), transparent 36%),
+          linear-gradient(135deg, rgba(132, 112, 255, 0.95), rgba(87, 198, 255, 0.82));
+      }
+
+      .target-name {
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .target-role {
+        margin-top: 2px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .target-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .chip {
+        padding: 4px 8px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 11px;
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .chip.good {
+        color: var(--good);
+        border-color: rgba(120, 228, 170, 0.22);
+      }
+
+      .chip.warn {
         color: var(--gold);
+        border-color: rgba(255, 203, 107, 0.22);
+      }
+
+      .detail-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .detail-note {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .chance-box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .chance-label {
+        color: var(--gold);
+        font-size: 14px;
         font-weight: 700;
       }
 
@@ -107,649 +242,578 @@
       }
 
       .dot {
-        width: 9px;
-        height: 9px;
+        width: 10px;
+        height: 10px;
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.14);
       }
 
       .dot.active {
-        background: linear-gradient(135deg, var(--gold), #ff9a67);
-        box-shadow: 0 0 10px rgba(255, 207, 112, 0.55);
+        background: linear-gradient(135deg, var(--gold), #ff9b67);
+        box-shadow: 0 0 10px rgba(255, 203, 107, 0.42);
       }
 
-      .card {
-        position: relative;
-        overflow: hidden;
-        padding: 12px;
-        border-radius: 16px;
-        border: 1px solid rgba(181, 140, 255, 0.45);
+      .detail-work {
+        min-height: 0;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 240px;
+        gap: 14px;
+      }
+
+      .slot-zone {
+        min-height: 0;
+        display: grid;
+        grid-template-rows: auto auto;
+        gap: 14px;
+      }
+
+      .slot-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .slot-card {
+        min-height: 220px;
+        border: 1px solid rgba(139, 120, 255, 0.28);
+        border-radius: 20px;
         background:
-          linear-gradient(135deg, rgba(140, 117, 255, 0.18), rgba(109, 215, 255, 0.12)),
-          linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
-        box-shadow:
-          inset 0 0 0 1px rgba(181, 140, 255, 0.15),
-          0 10px 24px rgba(92, 62, 170, 0.22);
+          linear-gradient(135deg, rgba(132, 112, 255, 0.14), rgba(87, 198, 255, 0.08)),
+          rgba(255, 255, 255, 0.025);
+        padding: 12px;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        gap: 10px;
+        overflow: hidden;
       }
 
-      .card::before,
-      .mini-card::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 45%);
-        pointer-events: none;
+      .slot-card.empty {
+        border-style: dashed;
+        border-color: rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.02);
       }
 
-      .badge {
-        display: inline-block;
-        margin-bottom: 8px;
+      .slot-card.active {
+        box-shadow: inset 0 0 0 1px rgba(87, 198, 255, 0.28), 0 0 18px rgba(87, 198, 255, 0.1);
+      }
+
+      .slot-card.selected {
+        border-color: rgba(87, 198, 255, 0.72);
+        box-shadow: inset 0 0 0 1px rgba(87, 198, 255, 0.22), 0 0 22px rgba(87, 198, 255, 0.16);
+      }
+
+      .slot-badge {
+        display: inline-flex;
+        width: fit-content;
         padding: 4px 8px;
         border-radius: 999px;
-        background: rgba(255, 207, 112, 0.16);
+        background: rgba(255, 203, 107, 0.16);
         color: var(--gold);
         font-size: 11px;
         font-weight: 700;
       }
 
-      .hero-row {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .portrait {
-        width: 56px;
-        height: 56px;
-        border-radius: 18px;
+      .slot-portrait {
+        width: 84px;
+        height: 84px;
+        border-radius: 22px;
         display: grid;
         place-items: center;
-        font-size: 24px;
+        margin: 0 auto;
+        font-size: 34px;
         font-weight: 800;
         color: #fff;
         background:
           radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.24), transparent 38%),
-          linear-gradient(135deg, rgba(140, 114, 255, 0.92), rgba(109, 215, 255, 0.76));
+          linear-gradient(135deg, rgba(132, 112, 255, 0.95), rgba(87, 198, 255, 0.82));
       }
 
-      .name {
-        margin-bottom: 2px;
-        font-size: 18px;
+      .slot-empty {
+        display: grid;
+        place-items: center;
+        color: var(--muted);
+        font-size: 15px;
         font-weight: 700;
-      }
-
-      .role {
-        color: var(--muted);
-        font-size: 12px;
-      }
-
-      .desc {
-        margin-top: 8px;
-        font-size: 12px;
-        line-height: 1.35;
-      }
-
-      .chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-top: 8px;
-      }
-
-      .chip {
-        padding: 4px 8px;
-        border-radius: 999px;
-        border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.04);
-        color: var(--muted);
-        font-size: 11px;
-      }
-
-      .actions {
-        display: grid;
-        gap: 8px;
-        margin-top: 10px;
-      }
-
-      button {
-        width: 100%;
-        border: 0;
-        border-radius: 12px;
-        padding: 11px 14px;
-        font-size: 14px;
-        font-weight: 700;
-        color: #fff;
-        cursor: pointer;
-        transition: transform 0.16s ease, opacity 0.16s ease;
-      }
-
-      button:hover:not(:disabled) {
-        transform: translateY(-1px);
-      }
-
-      button:active:not(:disabled) {
-        transform: translateY(1px);
-      }
-
-      button:disabled {
-        opacity: 0.45;
-        cursor: not-allowed;
-      }
-
-      .spin-button {
-        background: linear-gradient(135deg, var(--accent), var(--accent-2));
-        box-shadow: 0 10px 18px rgba(0, 0, 0, 0.18);
-      }
-
-      .spin-button.loading {
-        background: linear-gradient(135deg, #4f648d, #5d4ca1);
-      }
-
-      button.secondary {
-        background: rgba(255, 255, 255, 0.08);
-      }
-
-      button.choice {
-        text-align: left;
-        padding: 10px 12px;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid var(--line);
-      }
-
-      button.choice.selected {
-        border-color: rgba(109, 215, 255, 0.8);
-        box-shadow:
-          inset 0 0 0 1px rgba(109, 215, 255, 0.25),
-          0 0 16px rgba(109, 215, 255, 0.16);
-      }
-
-      .status,
-      .log,
-      .empty {
-        color: var(--muted);
-        font-size: 12px;
-        line-height: 1.35;
-      }
-
-      .status strong,
-      .log strong {
-        color: var(--text);
-      }
-
-      .status {
-        min-height: 32px;
-        margin-top: 8px;
-      }
-
-      .log {
-        min-height: 18px;
-        margin-top: 8px;
-      }
-
-      .top-panel {
-        display: grid;
-        grid-template-rows: auto auto auto auto 1fr;
-        gap: 8px;
-      }
-
-      .bottom-panel {
-        display: grid;
-        grid-template-rows: auto auto 1fr;
-        gap: 10px;
-      }
-
-      .selection-head {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 6px;
-      }
-
-      .guide {
-        color: var(--muted);
-        font-size: 11px;
-      }
-
-      .section-label {
-        margin: 0 0 6px;
-        color: var(--muted);
-        font-size: 11px;
-        font-weight: 700;
-      }
-
-      .list {
-        display: grid;
-        gap: 8px;
-      }
-
-      .two-col {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .mini-card {
-        position: relative;
-        overflow: hidden;
-        min-height: 72px;
-        padding: 10px;
-        border-radius: 14px;
-        border: 1px solid rgba(181, 140, 255, 0.32);
-        background:
-          linear-gradient(135deg, rgba(140, 117, 255, 0.15), rgba(109, 215, 255, 0.1)),
-          linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
-      }
-
-      .mini-name {
-        display: block;
-        margin-bottom: 3px;
-        font-size: 13px;
-        font-weight: 700;
-      }
-
-      .mini-meta {
-        color: var(--muted);
-        font-size: 11px;
-        line-height: 1.3;
-      }
-
-      .choice-mark {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 22px;
-        height: 22px;
-        margin-left: auto;
-        border-radius: 999px;
-        background: rgba(109, 215, 255, 0.16);
-        color: var(--accent);
-        font-size: 11px;
-        font-weight: 800;
-      }
-
-      .reveal {
-        animation: reveal 0.28s ease;
-      }
-
-      .draw-stage {
-        padding: 10px;
-        border-radius: 12px;
-        border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.03);
-      }
-
-      .draw-track {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 6px;
-      }
-
-      .draw-slot {
-        min-height: 50px;
-        padding: 8px 6px;
-        border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(255, 255, 255, 0.03);
-        transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-      }
-
-      .draw-slot.active {
-        border-color: rgba(109, 215, 255, 0.75);
-        background: linear-gradient(135deg, rgba(109, 215, 255, 0.18), rgba(141, 117, 255, 0.16));
-        transform: translateY(-1px);
-        box-shadow: 0 0 16px rgba(109, 215, 255, 0.16);
       }
 
       .slot-name {
-        margin-bottom: 2px;
-        font-size: 11px;
+        font-size: 22px;
         font-weight: 700;
       }
 
       .slot-role {
+        margin-top: 4px;
         color: var(--muted);
-        font-size: 10px;
-        line-height: 1.2;
+        font-size: 13px;
       }
 
-      .draw-caption {
-        margin-top: 8px;
+      .slot-desc {
+        color: var(--text);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .action-panel {
+        display: grid;
+        grid-template-rows: auto auto 1fr;
+        gap: 12px;
+      }
+
+      .action-box {
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .action-label {
+        margin-bottom: 8px;
         color: var(--muted);
-        font-size: 11px;
+        font-size: 12px;
       }
 
-      .result {
-        border: 1px solid rgba(116, 227, 159, 0.28);
-        background: linear-gradient(135deg, rgba(116, 227, 159, 0.14), rgba(109, 215, 255, 0.08));
+      .action-cost {
+        font-size: 26px;
+        font-weight: 800;
       }
 
-      .result-panel {
-        animation: finish-pop 0.36s ease;
-      }
-
-      .result-copy {
-        margin-top: 8px;
+      .action-hint {
+        margin-top: 6px;
         color: var(--muted);
         font-size: 12px;
         line-height: 1.4;
       }
 
-      .success-line {
-        margin-top: 8px;
-        padding: 8px 10px;
-        border-radius: 12px;
-        background: rgba(116, 227, 159, 0.08);
-        border: 1px solid rgba(116, 227, 159, 0.18);
-        color: #d8ffe7;
-        font-size: 12px;
+      .action-button {
+        width: 100%;
+        border: 0;
+        border-radius: 18px;
+        padding: 18px 14px;
+        color: #fff;
+        font-size: 24px;
+        font-weight: 800;
+        cursor: pointer;
       }
 
-      @keyframes reveal {
+      .action-button:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      .action-button.reroll {
+        background: linear-gradient(135deg, #1c6b8c, #2851b8);
+      }
+
+      .action-button.final {
+        background: linear-gradient(135deg, #2259a0, #2f7b9b);
+      }
+
+      .action-log {
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .result-panel {
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .result-title {
+        margin: 0 0 10px;
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      .result-empty {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .result-card {
+        border: 1px solid rgba(120, 228, 170, 0.26);
+        border-radius: 16px;
+        padding: 12px;
+        background: linear-gradient(135deg, rgba(120, 228, 170, 0.12), rgba(87, 198, 255, 0.08));
+      }
+
+      .result-card strong {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 20px;
+      }
+
+      .open-reveal {
+        animation: openReveal 0.24s ease;
+      }
+
+      @keyframes openReveal {
         from {
           opacity: 0;
-          transform: translateY(8px);
+          transform: scale(0.94);
         }
         to {
           opacity: 1;
-          transform: translateY(0);
+          transform: scale(1);
         }
       }
 
-      @keyframes finish-pop {
-        0% {
-          opacity: 0;
-          transform: scale(0.96);
+      @media (max-width: 1180px) {
+        body {
+          overflow: auto;
         }
-        100% {
-          opacity: 1;
-          transform: scale(1);
+
+        .app {
+          height: auto;
+          min-height: 100vh;
+        }
+
+        .workspace {
+          grid-template-columns: 1fr;
+        }
+
+        .detail-work {
+          grid-template-columns: 1fr;
+        }
+
+        .slot-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .action-panel {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          grid-template-rows: auto auto;
+        }
+
+        .action-log {
+          grid-column: 1 / -1;
         }
       }
     </style>
   </head>
   <body>
-    <main>
-      <header class="hero">
-        <h1>용병 재선택 시스템</h1>
-        <p class="sub">고등급 중복 결과를 즉시 확정하지 않고, 원본을 유지한 상태에서 랜덤 후보를 누적한 뒤 마지막에 하나를 선택하는 흐름을 검증합니다.</p>
+    <main class="app">
+      <header class="header">
+        <div>
+          <h1>용병 재선택 시스템</h1>
+          <p class="sub">고등급 중복 결과를 바로 확정하지 않고, 리스트 안에서 재선택 대상을 관리하며 슬롯이 열리면서 후보를 채우는 구조를 검증합니다.</p>
+        </div>
+        <div class="header-note">가로형 1스크린 프로토타입</div>
       </header>
 
-      <section class="panel top-panel">
-        <div class="meta">
-          <span>현재 획득 결과</span>
-          <div class="chance-wrap" id="chanceWrap"></div>
-        </div>
-        <div id="originalCard"></div>
-        <div class="actions">
-          <button id="rerollButton" class="spin-button" type="button">전환 진행</button>
-          <button id="finalizeButton" class="secondary" type="button">현재 후보로 최종 선택</button>
-        </div>
-        <div class="status" id="statusBox"></div>
-        <div class="draw-stage" id="drawStage" hidden>
-          <div class="draw-track" id="drawTrack"></div>
-          <div class="draw-caption" id="drawCaption">전환 후보를 생성 중입니다...</div>
-        </div>
-        <div class="log" id="logBox"></div>
-      </section>
-
-      <section class="panel bottom-panel">
-        <div>
-          <div class="selection-head">
-            <h2 class="panel-title">전환 후보</h2>
-            <span class="guide">최대 2개 누적</span>
+      <section class="workspace">
+        <aside class="panel left-panel">
+          <div class="section-head">
+            <h2 class="section-title">재선택 대상 리스트</h2>
+            <span class="section-copy">여러 대상 동시 관리</span>
           </div>
-          <div id="candidateList" class="list two-col"></div>
-        </div>
+          <div id="targetList" class="target-list"></div>
+        </aside>
 
-        <div>
-          <div class="selection-head">
-            <h2 class="panel-title">최종 선택 후보</h2>
-            <span class="guide">원본 포함 1개 선택</span>
+        <section class="panel right-panel">
+          <div class="detail-top">
+            <div>
+              <h2 class="section-title">선택 대상 상세</h2>
+              <div class="detail-note">원본과 열린 슬롯 결과를 비교한 뒤 최종 선택합니다.</div>
+            </div>
+            <div class="chance-box" id="chanceBox"></div>
           </div>
-          <div id="selectionList" class="list"></div>
-        </div>
 
-        <div>
-          <div class="section-label">최종 결과</div>
-          <div id="resultBox" class="empty">아직 최종 선택이 완료되지 않았습니다.</div>
-        </div>
+          <div class="detail-work">
+            <div class="slot-zone">
+              <div id="slotGrid" class="slot-grid"></div>
+              <div class="result-panel">
+                <div class="result-title">최종 결과</div>
+                <div id="resultBox" class="result-empty">아직 최종 선택이 완료되지 않았습니다.</div>
+              </div>
+            </div>
+
+            <div class="action-panel">
+              <div class="action-box">
+                <div class="action-label">재선택(1/3) 비용</div>
+                <div class="action-cost">전환기 1개</div>
+                <div class="action-hint">빈 슬롯이 열리면서 새로운 후보가 바로 표시됩니다.</div>
+              </div>
+
+              <button id="rerollButton" class="action-button reroll" type="button">재선택</button>
+              <button id="finalizeButton" class="action-button final" type="button">최종 선택</button>
+
+              <div id="logBox" class="action-log"></div>
+            </div>
+          </div>
+        </section>
       </section>
     </main>
 
     <script>
-      const mercenaryPool = [
-        { id: "arkel", name: "아르켈", role: "암속성 / 전열 딜러", desc: "순간 폭딜에 강한 전열형 용병" },
-        { id: "seiron", name: "세이론", role: "수속성 / 원거리 딜러", desc: "연속 공격 기반의 안정적인 딜러" },
-        { id: "rilmer", name: "릴메르", role: "화속성 / 광역 마도사", desc: "빙결과 폭발을 활용하는 광역형 용병" },
-        { id: "dorun", name: "도룬", role: "지속성 / 방어형 탱커", desc: "받는 피해를 흡수하는 방어형 용병" },
-        { id: "velka", name: "벨카", role: "화속성 / 광역 마도사", desc: "광역 마법으로 전장을 정리하는 후열형 용병" },
-        { id: "raven", name: "레이븐", role: "무속성 / 단일 딜러", desc: "단일 목표 제거에 강한 추적형 용병" },
-        { id: "isel", name: "이셀", role: "광속성 / 버퍼", desc: "공격 속도와 치명 보정을 올려주는 지원형 용병" },
-        { id: "garos", name: "가로스", role: "토속성 / 브루저", desc: "지속 전투에서 강한 근거리 브루저" }
+      const units = {
+        arkel: { id: "arkel", name: "아르켈", role: "암속성 / 전열 딜러", desc: "순간 폭딜에 강한 전열형 용병" },
+        seiron: { id: "seiron", name: "세이론", role: "수속성 / 원거리 딜러", desc: "연속 공격 기반의 안정적인 딜러" },
+        rilmer: { id: "rilmer", name: "릴메르", role: "화속성 / 광역 마도사", desc: "빙결과 폭발을 활용하는 광역형 용병" },
+        dorun: { id: "dorun", name: "도룬", role: "지속성 / 방어형 탱커", desc: "받는 피해를 흡수하는 방어형 용병" },
+        velka: { id: "velka", name: "벨카", role: "화속성 / 광역 마도사", desc: "광역 마법으로 전장을 정리하는 후열형 용병" },
+        raven: { id: "raven", name: "레이븐", role: "무속성 / 단일 딜러", desc: "단일 목표 제거에 강한 추적형 용병" },
+        isel: { id: "isel", name: "이셀", role: "광속성 / 버퍼", desc: "공격 속도와 치명 보정을 올려주는 지원형 용병" },
+        garos: { id: "garos", name: "가로스", role: "토속성 / 브루저", desc: "지속 전투에서 강한 근거리 브루저" }
+      };
+
+      const allIds = Object.keys(units);
+      const maxRerolls = 2;
+
+      const targets = [
+        createTarget("target-1", "arkel"),
+        createTarget("target-2", "velka"),
+        createTarget("target-3", "dorun")
       ];
 
-      const maxRerolls = 2;
-      const original = mercenaryPool[0];
-      let remainingRerolls = maxRerolls;
-      let candidateIds = [];
-      let selectedId = original.id;
-      let finalized = false;
+      let activeTargetId = targets[0].id;
 
-      const originalCard = document.getElementById("originalCard");
-      const chanceWrap = document.getElementById("chanceWrap");
+      const targetList = document.getElementById("targetList");
+      const chanceBox = document.getElementById("chanceBox");
+      const slotGrid = document.getElementById("slotGrid");
+      const resultBox = document.getElementById("resultBox");
       const rerollButton = document.getElementById("rerollButton");
       const finalizeButton = document.getElementById("finalizeButton");
-      const candidateList = document.getElementById("candidateList");
-      const selectionList = document.getElementById("selectionList");
-      const statusBox = document.getElementById("statusBox");
       const logBox = document.getElementById("logBox");
-      const resultBox = document.getElementById("resultBox");
-      const drawStage = document.getElementById("drawStage");
-      const drawTrack = document.getElementById("drawTrack");
-      const drawCaption = document.getElementById("drawCaption");
 
-      function cardHtml(unit, badge) {
-        return `
-          <div class="card">
-            <div class="badge">${badge}</div>
-            <div class="hero-row">
-              <div class="portrait">${unit.name.slice(0, 1)}</div>
-              <div>
-                <div class="name">${unit.name}</div>
-                <div class="role">${unit.role}</div>
-              </div>
-            </div>
-            <div class="desc">${unit.desc}</div>
-            <div class="chips">
-              <span class="chip">고등급</span>
-              <span class="chip">원본 유지 가능</span>
-            </div>
-          </div>
-        `;
+      function createTarget(id, originalId) {
+        return {
+          id,
+          originalId,
+          candidateIds: [],
+          remainingRerolls: maxRerolls,
+          selectedId: originalId,
+          finalized: false
+        };
       }
 
-      function miniCardHtml(unit, label) {
-        return `
-          <div class="mini-card">
-            <span class="mini-name">${label} · ${unit.name}</span>
-            <div class="mini-meta">${unit.role}</div>
-            <div class="mini-meta">${unit.desc}</div>
-          </div>
-        `;
+      function getTarget() {
+        return targets.find((item) => item.id === activeTargetId);
       }
 
-      function updateChanceDisplay() {
-        const dots = Array.from({ length: maxRerolls }, (_, index) => {
-          const active = index < remainingRerolls ? "dot active" : "dot";
-          return `<span class="${active}"></span>`;
-        }).join("");
-
-        chanceWrap.innerHTML = `
-          <span class="chance">전환 기회 ${remainingRerolls}회</span>
-          <div class="dots">${dots}</div>
-        `;
+      function unitPortrait(name) {
+        return name.slice(0, 1);
       }
 
-      function updateStatus() {
-        updateChanceDisplay();
-        statusBox.innerHTML = `<strong>원본 유지</strong> 상태로 후보를 누적한 뒤 마지막에 원본 포함 1개를 선택합니다.`;
-      }
+      function renderTargetList() {
+        targetList.innerHTML = targets
+          .map((target, index) => {
+            const unit = units[target.originalId];
+            const isActive = target.id === activeTargetId ? "active" : "";
+            const stateLabel = target.finalized ? "최종 선택 완료" : `후보 ${target.candidateIds.length} / 2`;
+            const chips = [
+              `<span class="chip warn">전환 ${target.remainingRerolls}회 남음</span>`,
+              target.finalized
+                ? `<span class="chip good">확정 완료</span>`
+                : `<span class="chip">원본 유지</span>`
+            ].join("");
 
-      function renderOriginal() {
-        originalCard.innerHTML = cardHtml(original, "고등급 중복");
-      }
-
-      function renderCandidates() {
-        if (candidateIds.length === 0) {
-          candidateList.innerHTML = `<div class="empty" style="grid-column: 1 / -1;">아직 생성된 전환 후보가 없습니다.</div>`;
-          return;
-        }
-
-        candidateList.innerHTML = candidateIds
-          .map((id, index) => {
-            const unit = mercenaryPool.find((item) => item.id === id);
-            return `<div class="reveal">${miniCardHtml(unit, `후보 ${index + 1}`)}</div>`;
-          })
-          .join("");
-      }
-
-      function renderSelectionOptions() {
-        const units = [original, ...candidateIds.map((id) => mercenaryPool.find((item) => item.id === id))];
-
-        selectionList.innerHTML = units
-          .map((unit, index) => {
-            const label = index === 0 ? "원본" : `후보 ${index}`;
-            const isSelected = unit.id === selectedId ? "selected" : "";
             return `
-              <button type="button" class="choice ${isSelected}" data-id="${unit.id}" ${finalized ? "disabled" : ""}>
-                <span class="mini-name">${label} · ${unit.name}</span>
-                ${isSelected ? `<span class="choice-mark">선택</span>` : ``}
-                <div class="mini-meta">${unit.role}</div>
+              <button type="button" class="target-item ${isActive}" data-target-id="${target.id}">
+                <div class="target-top">
+                  <div class="avatar">${unitPortrait(unit.name)}</div>
+                  <div>
+                    <div class="target-name">${index + 1}. ${unit.name}</div>
+                    <div class="target-role">${unit.role}</div>
+                  </div>
+                </div>
+                <div class="section-copy">${stateLabel}</div>
+                <div class="target-meta">${chips}</div>
               </button>
             `;
           })
           .join("");
 
-        selectionList.querySelectorAll(".choice").forEach((button) => {
+        targetList.querySelectorAll(".target-item").forEach((button) => {
           button.addEventListener("click", () => {
-            if (finalized) return;
-            selectedId = button.dataset.id;
-            renderSelectionOptions();
+            activeTargetId = button.dataset.targetId;
+            renderAll();
           });
         });
       }
 
-      function availablePool() {
-        const excluded = new Set([original.id, ...candidateIds]);
-        return mercenaryPool.filter((unit) => !excluded.has(unit.id));
+      function renderChanceBox(target) {
+        const dots = Array.from({ length: maxRerolls }, (_, index) => {
+          const active = index < target.remainingRerolls ? "dot active" : "dot";
+          return `<span class="${active}"></span>`;
+        }).join("");
+
+        chanceBox.innerHTML = `
+          <span class="chance-label">전환 기회 ${target.remainingRerolls}회</span>
+          <div class="dots">${dots}</div>
+        `;
       }
 
-      function sleep(ms) {
-        return new Promise((resolve) => setTimeout(resolve, ms));
+      function slotCardHtml(unit, options = {}) {
+        const { badge, selected = false, empty = false, opened = false } = options;
+
+        if (empty) {
+          return `
+            <div class="slot-card empty">
+              <div class="slot-badge">미개방 슬롯</div>
+              <div class="slot-empty">?</div>
+              <div class="section-copy">재선택 시 결과 공개</div>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="slot-card ${selected ? "selected" : ""} ${opened ? "open-reveal active" : ""}">
+            <div class="slot-badge">${badge}</div>
+            <div class="slot-portrait">${unitPortrait(unit.name)}</div>
+            <div>
+              <div class="slot-name">${unit.name}</div>
+              <div class="slot-role">${unit.role}</div>
+            </div>
+            <div class="slot-desc">${unit.desc}</div>
+          </div>
+        `;
       }
 
-      function renderDrawTrack(pool, activeIndex = -1) {
-        drawTrack.innerHTML = pool
-          .map((unit, index) => {
-            const active = index === activeIndex ? "draw-slot active" : "draw-slot";
-            return `
-              <div class="${active}">
-                <div class="slot-name">${unit.name}</div>
-                <div class="slot-role">${unit.role}</div>
-              </div>
-            `;
-          })
-          .join("");
+      function renderSlotGrid(target, openedCandidateId = null) {
+        const original = units[target.originalId];
+        const cards = [];
+
+        cards.push(
+          `<button type="button" class="slot-button" data-select-id="${original.id}">${slotCardHtml(original, {
+            badge: "원본",
+            selected: target.selectedId === original.id
+          })}</button>`
+        );
+
+        for (let i = 0; i < maxRerolls; i += 1) {
+          const candidateId = target.candidateIds[i];
+          if (!candidateId) {
+            cards.push(slotCardHtml(null, { empty: true }));
+            continue;
+          }
+
+          const unit = units[candidateId];
+          cards.push(
+            `<button type="button" class="slot-button" data-select-id="${unit.id}">${slotCardHtml(unit, {
+              badge: `후보 ${i + 1}`,
+              selected: target.selectedId === unit.id,
+              opened: openedCandidateId === unit.id
+            })}</button>`
+          );
+        }
+
+        slotGrid.innerHTML = cards.join("");
+
+        slotGrid.querySelectorAll(".slot-button").forEach((button) => {
+          button.style.border = "0";
+          button.style.padding = "0";
+          button.style.background = "transparent";
+          button.style.cursor = target.finalized ? "default" : "pointer";
+          if (target.finalized) return;
+
+          button.addEventListener("click", () => {
+            target.selectedId = button.dataset.selectId;
+            renderSlotGrid(target);
+          });
+        });
       }
 
-      function updateButtons() {
-        rerollButton.disabled = finalized || remainingRerolls <= 0 || availablePool().length === 0;
-        finalizeButton.disabled = finalized;
+      function renderResult(target) {
+        if (!target.finalized) {
+          resultBox.className = "result-empty";
+          resultBox.textContent = "아직 최종 선택이 완료되지 않았습니다.";
+          return;
+        }
+
+        const unit = units[target.selectedId];
+        resultBox.className = "";
+        resultBox.innerHTML = `
+          <div class="result-card">
+            <strong>${unit.name}</strong>
+            <div>${unit.role}</div>
+            <div class="action-hint">${unit.desc}</div>
+          </div>
+        `;
       }
 
-      async function reroll() {
-        if (finalized || remainingRerolls <= 0) return;
+      function renderLog(target) {
+        if (target.finalized) {
+          const unit = units[target.selectedId];
+          logBox.innerHTML = `<strong>${unit.name}</strong>을(를) 최종 수령했습니다. 이 대상은 더 이상 전환하지 않습니다.`;
+          return;
+        }
 
-        const pool = availablePool();
+        if (target.candidateIds.length === 0) {
+          logBox.innerHTML = `현재 선택 대상은 <strong>${units[target.originalId].name}</strong>입니다. 재선택 버튼을 누르면 빈 슬롯이 열리며 결과가 표시됩니다.`;
+          return;
+        }
+
+        logBox.innerHTML = `후보 <strong>${target.candidateIds.length}개</strong>가 열렸습니다. 원본 포함 비교 후 최종 선택할 수 있습니다.`;
+      }
+
+      function updateButtons(target) {
+        rerollButton.disabled = target.finalized || target.remainingRerolls <= 0 || availablePool(target).length === 0;
+        finalizeButton.disabled = target.finalized;
+      }
+
+      function availablePool(target) {
+        const excluded = new Set([target.originalId, ...target.candidateIds]);
+        return allIds.filter((id) => !excluded.has(id));
+      }
+
+      async function revealCandidate() {
+        const target = getTarget();
+        if (target.finalized || target.remainingRerolls <= 0) return;
+
+        const pool = availablePool(target);
         if (pool.length === 0) {
-          logBox.textContent = "더 이상 생성 가능한 후보가 없습니다.";
-          updateButtons();
+          logBox.textContent = "더 이상 열 수 있는 후보가 없습니다.";
+          updateButtons(target);
           return;
         }
 
         rerollButton.disabled = true;
-        finalizeButton.disabled = true;
-        rerollButton.classList.add("loading");
-        rerollButton.textContent = "전환 중...";
-        drawStage.hidden = false;
-        drawCaption.textContent = "전환 후보를 생성 중입니다...";
-        renderDrawTrack(pool);
+        const nextId = pool[Math.floor(Math.random() * pool.length)];
+        target.candidateIds.push(nextId);
+        target.remainingRerolls -= 1;
+        target.selectedId = nextId;
 
-        let activeIndex = 0;
-        const loops = Math.min(7, pool.length + 3);
-        for (let i = 0; i < loops; i += 1) {
-          activeIndex = i % pool.length;
-          renderDrawTrack(pool, activeIndex);
-          await sleep(110 + i * 18);
-        }
-
-        const next = pool[Math.floor(Math.random() * pool.length)];
-        const finalIndex = pool.findIndex((unit) => unit.id === next.id);
-        renderDrawTrack(pool, finalIndex);
-        drawCaption.textContent = `${next.name} 후보가 생성되었습니다.`;
-        await sleep(240);
-
-        candidateIds.push(next.id);
-        remainingRerolls -= 1;
-
-        if (selectedId === original.id) {
-          selectedId = next.id;
-        }
-
-        logBox.innerHTML = `<strong>${next.name}</strong> 후보가 추가되었습니다. 남은 전환 기회는 <strong>${remainingRerolls}회</strong>입니다.`;
-
-        updateStatus();
-        renderCandidates();
-        renderSelectionOptions();
-        updateButtons();
-
-        rerollButton.classList.remove("loading");
-        rerollButton.textContent = "전환 진행";
+        renderTargetList();
+        renderChanceBox(target);
+        renderSlotGrid(target, nextId);
+        renderResult(target);
+        renderLog(target);
+        updateButtons(target);
       }
 
-      function finalizeSelection() {
-        if (finalized) return;
-
-        finalized = true;
-        const unit = mercenaryPool.find((item) => item.id === selectedId);
-        resultBox.innerHTML = `
-          <div class="card result result-panel">
-            <div class="badge">최종 선택 완료</div>
-            <div class="hero-row">
-              <div class="portrait">${unit.name.slice(0, 1)}</div>
-              <div>
-                <div class="name">${unit.name}</div>
-                <div class="role">${unit.role}</div>
-              </div>
-            </div>
-            <div class="desc">${unit.desc}</div>
-            <div class="result-copy">원본과 누적 후보를 모두 비교한 뒤 최종 수령으로 확정한 결과입니다.</div>
-            <div class="success-line">${unit.name}을(를) 최종 결과로 확정했습니다.</div>
-          </div>
-        `;
-        logBox.innerHTML = `<strong>${unit.name}</strong>을(를) 최종 수령했습니다. 전환 절차가 종료되었습니다.`;
-        updateButtons();
-        renderSelectionOptions();
+      function finalizeTarget() {
+        const target = getTarget();
+        if (target.finalized) return;
+        target.finalized = true;
+        renderTargetList();
+        renderChanceBox(target);
+        renderSlotGrid(target);
+        renderResult(target);
+        renderLog(target);
+        updateButtons(target);
       }
 
-      rerollButton.addEventListener("click", reroll);
-      finalizeButton.addEventListener("click", finalizeSelection);
+      function renderAll(openedCandidateId = null) {
+        const target = getTarget();
+        renderTargetList();
+        renderChanceBox(target);
+        renderSlotGrid(target, openedCandidateId);
+        renderResult(target);
+        renderLog(target);
+        updateButtons(target);
+      }
 
-      renderOriginal();
-      updateStatus();
-      renderCandidates();
-      renderSelectionOptions();
-      updateButtons();
-      logBox.innerHTML = `원본 용병을 유지한 상태에서 <strong>전환 진행</strong>을 시작할 수 있습니다.`;
+      rerollButton.addEventListener("click", revealCandidate);
+      finalizeButton.addEventListener("click", finalizeTarget);
+
+      renderAll();
     </script>
   </body>
 </html>
