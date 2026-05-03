@@ -1,6 +1,6 @@
 #메모 개발 및 프로토타입 참고
 
-이 문서는 [system-planning-doc.md](C:/Users/Home/OneDrive/110.카카오톡/New%20project/mercenary-reselect-prototype/docs/system-planning-doc.md)의 내부 구현 참고 문서다.  
+이 문서는 [01_planning.md](01_planning.md)의 내부 구현 참고 문서다.  
 제출용 본문이 아니라, 실제 구현과 프로토타입 테스트를 함께 정리하는 작업용 메모로 사용한다.
 
 ## 1. 목적

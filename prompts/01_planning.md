@@ -136,7 +136,7 @@
 - 재선택 완료율이 의미 있게 발생한다.
 - 중복 SSR 획득 이후 즉시 이탈보다 후속 정리 행동이 늘어난다.
 
-상세 계산 근거와 비교 가정은 내부 참고 문서인 [efficiency-analysis.md](C:/Users/Home/OneDrive/110.카카오톡/New%20project/mercenary-reselect-prototype/docs/efficiency-analysis.md)를 따른다.
+상세 계산 근거와 비교 가정은 내부 참고 문서인 [03_analysis.md](03_analysis.md)를 따른다.
 
 ## 11. 프로토타입 반영 범위 및 참고 기준
 
@@ -151,10 +151,10 @@
 - 정적 48시간 UX 문구
 
 현재 문서는 실제 서비스 확정 수치 문서가 아니라, 프로토타입을 바탕으로 한 개발 기획서다.  
-테스트용 확률, 초기 보유량, 임시 자산 상태, 세부 상태표는 내부 참고 문서인 [development-spec.md](C:/Users/Home/OneDrive/110.카카오톡/New%20project/mercenary-reselect-prototype/docs/development-spec.md)를 기준으로 확인한다.
+테스트용 확률, 초기 보유량, 임시 자산 상태, 세부 상태표는 내부 참고 문서인 [02_dev-spec.md](02_dev-spec.md)를 기준으로 확인한다.
 
 참고 기준은 아래와 같다.
 
 - 메인 구현 흐름 기준: 현재 프로토타입
-- 세부 구현 및 테스트 기준: [development-spec.md](C:/Users/Home/OneDrive/110.카카오톡/New%20project/mercenary-reselect-prototype/docs/development-spec.md)
-- 효율 해석 기준: [efficiency-analysis.md](C:/Users/Home/OneDrive/110.카카오톡/New%20project/mercenary-reselect-prototype/docs/efficiency-analysis.md)
+- 세부 구현 및 테스트 기준: [02_dev-spec.md](02_dev-spec.md)
+- 효율 해석 기준: [03_analysis.md](03_analysis.md)

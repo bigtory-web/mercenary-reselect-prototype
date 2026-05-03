@@ -4,10 +4,8 @@
 
 ## Structure
 
-- `docs/`: 시스템 정리 문서
-- `prototype/`: 실행용 프로토타입
+- `prototype/`: 실행용 프로토타입,시스템 정리 문서 및 문서 작업 시 필요 내용, 문서는 .pptx로 작업
 - `prompts/`: 프로젝트 전용 프롬프트
-- `assets/`: 이미지/참고 자산
 
 ## Note
 
