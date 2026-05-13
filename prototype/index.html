@@ -193,6 +193,8 @@
       }
       .scene-center {
         position: relative;
+        width: 100%;
+        min-height: 420px;
         display: grid;
         place-items: center;
       }
@@ -359,14 +361,15 @@
       .summon-grid {
         position: relative;
         z-index: 1;
-        width: 520px;
+        width: 610px;
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 16px 18px;
+        grid-template-columns: repeat(4, 132px);
+        justify-content: center;
+        gap: 18px 22px;
         justify-items: center;
       }
       .summon-card {
-        width: 116px;
+        width: 132px;
         aspect-ratio: 1;
         padding: 7px;
         border-radius: 16px;
@@ -416,6 +419,8 @@
         image-rendering: crisp-edges;
       }
       .scene-bottom {
+        position: relative;
+        z-index: 10;
         display: grid;
         justify-items: center;
         align-content: end;
@@ -441,9 +446,12 @@
       .summon-button-wrap {
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 18px;
+        min-width: 340px;
+        min-height: 124px;
         position: relative;
-        z-index: 3;
+        z-index: 12;
       }
       .summon-button-wrap::before,
       .summon-button-wrap::after {
@@ -453,10 +461,10 @@
         pointer-events: none;
       }
       .bottom-button {
-        width: 280px;
-        min-width: 280px;
-        height: 96px;
-        min-height: 96px;
+        width: 300px;
+        min-width: 300px;
+        height: 108px;
+        min-height: 108px;
         border: 0;
         border-radius: 20px;
         background: linear-gradient(135deg, #17356f, #2a5caa);
@@ -473,11 +481,12 @@
         line-height: 1;
         padding: 10px 18px 12px;
         position: relative;
-        z-index: 1;
+        z-index: 13;
         box-sizing: border-box;
         pointer-events: auto;
         touch-action: manipulation;
         -webkit-appearance: none;
+        user-select: none;
       }
       .button-main {
         font-size: 20px;
@@ -1595,8 +1604,7 @@
             </article>
           `;
         }).join("");
-        const ownedSSRCount = SSR_IDS.filter((id) => ownedCounts[id] > 0).length;
-        resultCopy.textContent = `\uC18C\uD658\uC744 \uD1B5\uD574 SSR \uB4F1\uAE09 \uC601\uC6C5 8\uBA85\uC744 \uBAA8\uB450 \uBAA8\uC73C\uB294 \uAC83\uC774 \uD604\uC7AC \uD504\uB85C\uD1A0\uD0C0\uC785\uC758 \uBAA9\uD45C\uC785\uB2C8\uB2E4. (${ownedSSRCount}/${SSR_IDS.length})`;
+        resultCopy.textContent = `\uC18C\uD658\uC744 \uD1B5\uD574 SSR \uB4F1\uAE09 \uC601\uC6C5 8\uBA85\uC744 \uBAA8\uB450 \uBAA8\uC73C\uB294 \uAC83\uC774 \uD604\uC7AC \uD504\uB85C\uD1A0\uD0C0\uC785\uC758 \uBAA9\uD45C\uC785\uB2C8\uB2E4.`;
       }
 
       function renderDots(opened) {
@@ -1725,7 +1733,15 @@
 
       function renderTestPanel() {
         const ownedSSRCount = SSR_IDS.filter((id) => ownedCounts[id] > 0).length;
+        const averageSSRText = totalSSRDraws > 0
+          ? totalVirtualCost % totalSSRDraws === 0
+            ? totalVirtualCost / totalSSRDraws
+            : Math.round(totalVirtualCost / totalSSRDraws)
+          : null;
         testPanelSummary.innerHTML = `
+          <div class="test-summary-row">
+            <span class="test-summary-item">SSR 평균 획득 비용 ${averageSSRText === null ? "-" : averageSSRText.toLocaleString("ko-KR")}</span>
+          </div>
           <div class="test-summary-row">
             <span class="test-summary-item">${totalSummonRuns}\uD68C \uC18C\uD658</span>
             <span class="test-summary-item">\uBE44\uC6A9 ${totalVirtualCost.toLocaleString("ko-KR")}</span>
