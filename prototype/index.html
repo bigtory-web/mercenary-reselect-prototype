@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
@@ -17,8 +17,7 @@
       body {
         margin: 0;
         min-height: 100vh;
-        display: grid;
-        place-items: center;
+        position: relative;
         overflow: hidden;
         background: radial-gradient(circle at top, #10203b 0%, #050b16 65%);
         color: var(--text);
@@ -28,9 +27,12 @@
       .hidden { display: none !important; }
 
       .stage {
-        position: relative;
-        width: min(calc(100vw - 48px), calc((100vh - 48px) * 16 / 9));
-        aspect-ratio: 16 / 9;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 1080px;
+        height: 720px;
         overflow: hidden;
         border-radius: 18px;
         background:
@@ -124,7 +126,7 @@
         box-shadow: 0 0 12px rgba(92, 194, 255, 0.28);
       }
       .gem-icon::before {
-        content: "◆";
+        content: "??;
         transform: scale(0.9);
       }
       .gem-plus {
@@ -194,6 +196,143 @@
         display: grid;
         place-items: center;
       }
+      .test-panel {
+        position: absolute;
+        left: calc(50% + 540px + 22px);
+        top: auto;
+        bottom: calc(50% - 360px);
+        transform: none;
+        z-index: 5;
+        width: 286px;
+        height: 520px;
+        padding: 14px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: linear-gradient(180deg, rgba(17, 28, 47, 0.88), rgba(10, 18, 32, 0.94));
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+        backdrop-filter: blur(8px);
+        display: grid;
+        grid-template-rows: auto auto 1fr;
+        align-content: stretch;
+        gap: 12px;
+      }
+      .test-panel-title {
+        font-size: 14px;
+        font-weight: 900;
+        color: #eef4ff;
+        letter-spacing: -0.02em;
+      }
+      .test-panel-summary {
+        color: #c6d2ea;
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 1.5;
+        display: grid;
+        gap: 4px;
+      }
+      .test-summary-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .test-summary-item {
+        color: #d7e3f9;
+        font-size: 11px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+      .test-log-list {
+        min-height: 0;
+        height: 100%;
+        overflow: auto;
+        display: grid;
+        gap: 8px;
+        padding-right: 4px;
+        align-content: start;
+      }
+      .test-log-list::-webkit-scrollbar {
+        width: 6px;
+      }
+      .test-log-list::-webkit-scrollbar-thumb {
+        background: rgba(255,255,255,0.12);
+        border-radius: 999px;
+      }
+      .test-log-entry {
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        background: rgba(255, 255, 255, 0.03);
+        padding: 11px 12px;
+        display: grid;
+        align-content: start;
+        gap: 8px;
+      }
+      .test-log-entry.has-ssr {
+        border-color: rgba(255, 196, 106, 0.30);
+        background: linear-gradient(180deg, rgba(255, 190, 90, 0.12), rgba(255, 255, 255, 0.03));
+        box-shadow: 0 0 0 1px rgba(255, 214, 132, 0.08) inset;
+      }
+      .test-log-entry.is-reroll {
+        border-color: rgba(93, 169, 255, 0.28);
+        background: linear-gradient(180deg, rgba(78, 143, 255, 0.12), rgba(255, 255, 255, 0.03));
+        box-shadow: 0 0 0 1px rgba(138, 196, 255, 0.08) inset;
+      }
+      .test-log-entry.is-finalize {
+        border-color: rgba(98, 214, 169, 0.26);
+        background: linear-gradient(180deg, rgba(63, 196, 146, 0.13), rgba(255, 255, 255, 0.03));
+        box-shadow: 0 0 0 1px rgba(137, 232, 194, 0.08) inset;
+      }
+      .test-log-head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .test-log-turn {
+        padding: 3px 8px;
+        border-radius: 999px;
+        border: 1px solid rgba(196, 219, 255, 0.38);
+        color: #e7f0ff;
+        font-size: 11px;
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -0.01em;
+        background: rgba(255, 255, 255, 0.02);
+        white-space: nowrap;
+      }
+      .test-log-result {
+        color: #eef4ff;
+        font-size: 13px;
+        font-weight: 900;
+        line-height: 1.4;
+      }
+      .test-log-entry.has-ssr .test-log-result {
+        color: #ffd98a;
+      }
+      .test-log-entry.is-reroll .test-log-result {
+        color: #9cd0ff;
+      }
+      .test-log-entry.is-finalize .test-log-result {
+        color: #96f1c8;
+      }
+      .test-log-main {
+        color: #c6d2ea;
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 1.45;
+      }
+      .test-log-empty {
+        min-height: 120px;
+        border-radius: 16px;
+        border: 1px dashed rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.02);
+        display: grid;
+        place-items: center;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--muted);
+        text-align: center;
+        line-height: 1.5;
+      }
       .summon-circle {
         position: absolute;
         width: min(56vw, 660px);
@@ -220,14 +359,14 @@
       .summon-grid {
         position: relative;
         z-index: 1;
-        width: min(58%, 860px);
+        width: 520px;
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 18px 22px;
+        gap: 16px 18px;
         justify-items: center;
       }
       .summon-card {
-        width: 122px;
+        width: 116px;
         aspect-ratio: 1;
         padding: 7px;
         border-radius: 16px;
@@ -263,20 +402,6 @@
         height: 100%;
         border-radius: 12px;
         overflow: hidden;
-      }
-      .summon-inner::before {
-        content: "";
-        position: absolute;
-        left: 5px;
-        top: 5px;
-        width: 24px;
-        height: 24px;
-        border-radius: 999px;
-        background: radial-gradient(circle at 35% 35%, rgba(31, 38, 60, 0.96), rgba(12, 18, 31, 0.98));
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.28);
-        z-index: 2;
-        pointer-events: none;
       }
       .summon-inner img,
       .result-card-thumb img,
@@ -317,16 +442,21 @@
         display: flex;
         align-items: center;
         gap: 18px;
+        position: relative;
+        z-index: 3;
       }
       .summon-button-wrap::before,
       .summon-button-wrap::after {
-        content: "✧";
+        content: "??;
         color: rgba(109, 144, 255, 0.56);
         font-size: 28px;
+        pointer-events: none;
       }
       .bottom-button {
-        min-width: 228px;
-        min-height: 72px;
+        width: 280px;
+        min-width: 280px;
+        height: 96px;
+        min-height: 96px;
         border: 0;
         border-radius: 20px;
         background: linear-gradient(135deg, #17356f, #2a5caa);
@@ -335,12 +465,19 @@
         font-weight: 900;
         box-shadow: 0 12px 30px rgba(17, 53, 112, 0.34);
         cursor: pointer;
-        display: grid;
-        justify-items: center;
-        align-content: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         gap: 4px;
         line-height: 1;
         padding: 10px 18px 12px;
+        position: relative;
+        z-index: 1;
+        box-sizing: border-box;
+        pointer-events: auto;
+        touch-action: manipulation;
+        -webkit-appearance: none;
       }
       .button-main {
         font-size: 20px;
@@ -443,6 +580,8 @@
         width: 30px;
         height: 18px;
         object-fit: contain;
+        display: block;
+        mix-blend-mode: multiply;
       }
       .close-button {
         position: absolute;
@@ -602,7 +741,7 @@
       }
       .slot-card {
         position: relative;
-        min-height: 122px;
+        min-height: 144px;
         border-radius: 16px;
         border: 1px solid rgba(126,146,198,0.28);
         background: linear-gradient(180deg, rgba(52,61,106,0.88), rgba(26,39,61,0.96));
@@ -646,6 +785,16 @@
         font-size: 14px;
         font-weight: 900;
       }
+      .slot-upgrade {
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: rgba(255, 198, 107, 0.16);
+        border: 1px solid rgba(255, 198, 107, 0.34);
+        color: #ffd88e;
+        font-size: 10px;
+        font-weight: 900;
+        line-height: 1;
+      }
       .slot-empty {
         font-size: 24px;
         font-weight: 900;
@@ -653,12 +802,31 @@
       }
       .new-badge {
         position: absolute;
-        left: -2px;
-        top: -2px;
-        width: 42px;
-        height: 42px;
-        object-fit: contain;
+        left: -4px;
+        top: -4px;
+        width: 44px;
+        height: 44px;
         pointer-events: none;
+        overflow: hidden;
+        z-index: 3;
+      }
+      .new-badge::before {
+        content: "NEW";
+        position: absolute;
+        left: -9px;
+        top: 7px;
+        width: 42px;
+        height: 14px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, #ff9a2f, #e1441a);
+        color: #fff7d6;
+        font-size: 8px;
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        transform: rotate(-45deg);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.28);
+        border: 1px solid rgba(255, 219, 132, 0.45);
       }
       .slot-ssr-badge {
         position: absolute;
@@ -781,7 +949,13 @@
           ssrGlint 2.4s linear 0.8s infinite;
       }
       .result-card.sr { box-shadow: 0 0 0 1px rgba(91,194,255,0.25) inset; }
-      .result-card.r { box-shadow: 0 0 0 1px rgba(255,202,105,0.2) inset; }
+      .result-card.r {
+        box-shadow: 0 0 0 1px rgba(255,202,105,0.2) inset;
+      }
+      .result-card.n {
+        border-color: rgba(146, 164, 202, 0.18);
+        box-shadow: 0 0 0 1px rgba(146, 164, 202, 0.12) inset;
+      }
       .result-card-thumb {
         width: 94px;
         height: 94px;
@@ -885,6 +1059,18 @@
         gap: 8px;
         justify-items: center;
       }
+      .inventory-card.unowned {
+        background: rgba(255,255,255,0.015);
+        border-color: rgba(255,255,255,0.05);
+      }
+      .inventory-card.unowned .inventory-card-thumb,
+      .inventory-card.unowned .inventory-name,
+      .inventory-card.unowned .inventory-count {
+        opacity: 0.4;
+      }
+      .inventory-card.unowned .inventory-card-thumb img {
+        filter: grayscale(1) brightness(0.56);
+      }
       .inventory-card-thumb {
         width: 78px;
         height: 78px;
@@ -898,6 +1084,23 @@
         background: rgba(255,255,255,0.08);
         font-size: 11px;
         font-weight: 800;
+      }
+      .inventory-upgrade {
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: rgba(255, 198, 107, 0.16);
+        border: 1px solid rgba(255, 198, 107, 0.34);
+        color: #ffd88e;
+        font-size: 11px;
+        font-weight: 900;
+        min-height: 24px;
+        display: inline-grid;
+        place-items: center;
+      }
+      .inventory-upgrade.placeholder {
+        background: transparent;
+        border-color: transparent;
+        color: transparent;
       }
       .completion-overlay {
         position: absolute;
@@ -950,6 +1153,69 @@
         font-size: 14px;
         font-weight: 900;
         cursor: pointer;
+      }
+      .confirm-overlay {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: rgba(2,7,15,0.46);
+        backdrop-filter: blur(4px);
+        z-index: 39;
+      }
+      .confirm-modal {
+        width: min(360px, calc(100% - 32px));
+        padding: 22px 20px 18px;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 20px;
+        background: linear-gradient(180deg, rgba(22,34,53,0.97), rgba(10,17,28,0.98));
+        box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+        text-align: center;
+      }
+      .confirm-label {
+        color: var(--gold);
+        font-size: 12px;
+        font-weight: 900;
+        margin-bottom: 8px;
+      }
+      .confirm-portrait {
+        width: 86px;
+        height: 86px;
+        margin: 0 auto 10px;
+        border-radius: 18px;
+        overflow: hidden;
+      }
+      .confirm-name {
+        font-size: 22px;
+        font-weight: 900;
+        margin-bottom: 8px;
+      }
+      .confirm-copy {
+        color: var(--muted);
+        font-size: 13px;
+        margin-bottom: 16px;
+      }
+      .confirm-actions {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+      .confirm-button {
+        min-width: 120px;
+        height: 44px;
+        border: 0;
+        border-radius: 14px;
+        font-size: 14px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+      .confirm-button.cancel {
+        background: rgba(255,255,255,0.08);
+        color: #fff;
+      }
+      .confirm-button.accept {
+        background: linear-gradient(135deg, #2f7ae8, #53b7ff);
+        color: #fff;
       }
       @keyframes ssrReveal {
         0% {
@@ -1036,22 +1302,16 @@
           <div class="scene-actions">
             <div class="scene-entry">
               <button class="scene-entry-button" id="openManageButton" type="button" aria-label="open manage">
-                <img src="../assets/ui/manage-reselect.png" alt="manage" />
+                <img src="./assets/ui/manage-reselect.png" alt="manage" />
                 <span class="scene-entry-count hidden" id="pendingCountBadge">0</span>
               </button>
-              <div class="scene-entry-label">&#54869;&#51221; &#44288;&#47532;</div>
+              <div class="scene-entry-label">&#51116;&#49440;&#53469;</div>
             </div>
             <div class="scene-entry">
               <button class="scene-entry-button" id="openInventoryButton" type="button" aria-label="open inventory">
-                <span style="font-size: 22px">&#50689;</span>
+                <span style="font-size: 22px">&#128193;</span>
               </button>
-              <div class="scene-entry-label">&#50689;&#50885;</div>
-            </div>
-            <div class="scene-icon scene-settings" aria-hidden="true">&#9881;</div>
-            <div class="scene-gem">
-              <span class="gem-icon" aria-hidden="true"></span>
-              <span id="sceneGemCount">5000</span>
-              <button class="currency-plus gem-plus" id="addSceneGemButton" type="button" aria-label="add gems">+</button>
+              <div class="scene-entry-label">&#50689;&#50885; &#44288;&#47532;</div>
             </div>
           </div>
         </div>
@@ -1063,7 +1323,7 @@
 
         <div class="scene-bottom">
           <div class="summon-info">
-            <div class="summon-rate">SSR 5% &middot; SR 25% &middot; R 70%</div>
+            <div class="summon-rate">SSR 1% &middot; SR 15% &middot; R 40% &middot; N 45%</div>
             <div class="summon-note">&#44033; &#46321;&#44553;&#48324; 8&#47749;&#51032; &#50857;&#48337;&#51060; &#51316;&#51116;&#54633;&#45768;&#45796;.</div>
           </div>
           <div class="summon-button-wrap">
@@ -1080,15 +1340,10 @@
       <section class="modal result-modal hidden" id="summonResultModal" aria-label="summon results">
         <header class="modal-head">
           <h1 class="modal-title">10&#54924; &#49548;&#54872; &#44208;&#44284;</h1>
-          <div class="modal-currency">
-            <span class="gem-icon" aria-hidden="true"></span>
-            <span id="resultGemCount">5000</span>
-            <button class="currency-plus gem-plus" id="addResultGemButton" type="button" aria-label="add gems in result">+</button>
-          </div>
         </header>
         <div class="result-body">
           <div class="result-grid" id="summonResultGrid"></div>
-          <div class="result-copy">&#51060;&#48264; &#49548;&#54872; &#44208;&#44284;&#45716; &#48148;&#47196; &#48372;&#50976; &#54788;&#54889;&#50640; &#48152;&#50689;&#46104;&#47728;, SSR &#50857;&#48337;&#51008; &#54869;&#51221; &#44288;&#47532;&#50640; &#52628;&#44032;&#46121;&#45768;&#45796;.</div>
+          <div class="result-copy" id="resultCopy"></div>
           <div class="result-actions">
             <button class="result-resummon stacked-button" id="resummonButton" type="button">
               <span class="button-main">10&#54924; &#49548;&#54872;</span>
@@ -1103,7 +1358,7 @@
         <header class="modal-head">
           <h1 class="modal-title">&#50857;&#48337; &#51116;&#49440;&#53469;</h1>
           <div class="modal-currency">
-            <img class="currency-icon" src="../assets/ui/reroll-ticket.png" alt="ticket" />
+            <img class="currency-icon" src="./assets/ui/reroll-ticket.png" alt="ticket" />
             <span id="tokenCount">0</span>
             <button class="currency-plus" id="addTokenButton" type="button" aria-label="add tickets">+</button>
           </div>
@@ -1111,13 +1366,13 @@
         </header>
         <div class="manage-body">
           <div class="list" id="manageList"></div>
-          <div class="popup-foot">48&#49884;&#44036; &#44221;&#44284; &#54980; &#52572;&#51333; &#49440;&#53469;&#46108; &#50857;&#48337;&#51004;&#47196; &#50864;&#54200;&#51004;&#47196; &#51088;&#46041; &#48156;&#49569;&#46121;&#45768;&#45796;.</div>
+          <div class="popup-foot">24&#49884;&#44036; &#44221;&#44284; &#54980; &#51116;&#49440;&#53469; &#51060;&#50857;&#51012; &#54624; &#49688; &#50630;&#49845;&#45768;&#45796;.</div>
         </div>
       </section>
 
       <section class="modal inventory-modal hidden" id="inventoryModal" aria-label="inventory">
         <header class="modal-head">
-          <h1 class="modal-title">&#50689;&#50885; &#48372;&#50976; &#54788;&#54889;</h1>
+          <h1 class="modal-title">&#50689;&#50885; &#51064;&#48292;&#53664;&#47532;</h1>
           <button class="close-button" data-close-modal="inventory" type="button" aria-label="close">&times;</button>
         </header>
         <div class="inventory-body">
@@ -1134,40 +1389,66 @@
           <button class="completion-button" id="completionConfirmButton" type="button">&#54869;&#51064;</button>
         </div>
       </div>
+      <div class="confirm-overlay hidden" id="confirmOverlay">
+        <div class="confirm-modal" role="dialog" aria-modal="true" aria-label="confirm finalize">
+          <div class="confirm-label">&#52572;&#51333; &#49440;&#53469; &#54869;&#51064;</div>
+          <div class="confirm-portrait" id="confirmPortrait"></div>
+          <div class="confirm-name" id="confirmName">&#50857;&#48337;</div>
+          <div class="confirm-copy" id="confirmCopy">&#52572;&#51333; &#49688;&#47161;&#54616;&#49884;&#44192;&#49845;&#45768;&#44620;?</div>
+          <div class="confirm-actions">
+            <button class="confirm-button cancel" id="confirmCancelButton" type="button">N</button>
+            <button class="confirm-button accept" id="confirmAcceptButton" type="button">Y</button>
+          </div>
+        </div>
+      </div>
     </main>
+    <aside class="test-panel" aria-label="test progress">
+      <div class="test-panel-title">&#53580;&#49828;&#53944; &#51652;&#54665; &#54788;&#54889;</div>
+      <div class="test-panel-summary" id="testPanelSummary">0&#54924; &#49548;&#54872; / &#44032;&#49345; &#45572;&#51201; &#48708;&#50857; 0 / SSR &#54937;&#46301; 0 / &#52972;&#47113;&#49496; 0/8</div>
+      <div class="test-log-list" id="testLogList"></div>
+    </aside>
 
     <script>
       const units = [
-        { id: "arkel", name: "\uC544\uB974\uCF08", rarity: "SSR", attr: "D", image: "../assets/icons/01_arkel_dark.png", glow: "rgba(176,99,255,0.72)", edge: "#cc95ff" },
-        { id: "seiron", name: "\uC138\uC774\uB860", rarity: "SSR", attr: "W", image: "../assets/icons/02_seiron_water.png", glow: "rgba(86,180,255,0.72)", edge: "#86d7ff" },
-        { id: "rilmer", name: "\uB9B4\uBA54\uB974", rarity: "SSR", attr: "F", image: "../assets/icons/03_lilmer_fire.png", glow: "rgba(255,122,74,0.74)", edge: "#ffb067" },
-        { id: "dorun", name: "\uB3C4\uB8EC", rarity: "SSR", attr: "N", image: "../assets/icons/04_dorun_nature.png", glow: "rgba(126,220,88,0.72)", edge: "#b8ff8d" },
-        { id: "velka", name: "\uBCA8\uCE74", rarity: "SSR", attr: "F", image: "../assets/icons/05_belka_fire.png", glow: "rgba(255,122,74,0.74)", edge: "#ffb067" },
-        { id: "raven", name: "\uB808\uC774\uBE10", rarity: "SSR", attr: "N", image: "../assets/icons/06_raven_neutral.png", glow: "rgba(188,196,215,0.58)", edge: "#dce4f3" },
-        { id: "isel", name: "\uC774\uC140", rarity: "SSR", attr: "L", image: "../assets/icons/07_isel_light.png", glow: "rgba(255,215,114,0.74)", edge: "#fff0a6" },
-        { id: "garos", name: "\uAC00\uB85C\uC2A4", rarity: "SSR", attr: "E", image: "../assets/icons/08_garos_earth.png", glow: "rgba(188,132,74,0.70)", edge: "#e7c18d" },
-        { id: "sr01", name: "\uC138\uB77C\uD540", rarity: "SR", attr: "S", image: "../assets/icons/sr/mercenary_attr_01.png", glow: "rgba(78,166,255,0.46)", edge: "#73caff" },
-        { id: "sr02", name: "\uBE0C\uB9AD\uC2A4", rarity: "SR", attr: "S", image: "../assets/icons/sr/mercenary_attr_02.png", glow: "rgba(78,166,255,0.46)", edge: "#73caff" },
-        { id: "sr03", name: "\uB098\uC77C\uB77C", rarity: "SR", attr: "S", image: "../assets/icons/sr/mercenary_attr_03.png", glow: "rgba(78,166,255,0.46)", edge: "#73caff" },
-        { id: "sr04", name: "\uCE74\uC778", rarity: "SR", attr: "S", image: "../assets/icons/sr/mercenary_attr_04.png", glow: "rgba(78,166,255,0.46)", edge: "#73caff" },
-        { id: "sr05", name: "\uC624\uB974\uD39C", rarity: "SR", attr: "S", image: "../assets/icons/sr/mercenary_attr_05.png", glow: "rgba(78,166,255,0.46)", edge: "#73caff" },
-        { id: "sr06", name: "\uBBF8\uB9AC\uC544", rarity: "SR", attr: "S", image: "../assets/icons/sr/mercenary_attr_06.png", glow: "rgba(78,166,255,0.46)", edge: "#73caff" },
-        { id: "sr07", name: "\uD558\uC2A4\uD2B8", rarity: "SR", attr: "S", image: "../assets/icons/sr/mercenary_attr_07.png", glow: "rgba(78,166,255,0.46)", edge: "#73caff" },
-        { id: "sr08", name: "\uB85C\uC5D4", rarity: "SR", attr: "S", image: "../assets/icons/sr/mercenary_attr_08.png", glow: "rgba(78,166,255,0.46)", edge: "#73caff" },
-        { id: "r01", name: "\uD398\uB978", rarity: "R", attr: "R", image: "../assets/icons/r/mercenary_01.png", glow: "rgba(255,192,98,0.32)", edge: "#e6c08a" },
-        { id: "r02", name: "\uD1A0\uBE44\uC544", rarity: "R", attr: "R", image: "../assets/icons/r/mercenary_02.png", glow: "rgba(255,192,98,0.32)", edge: "#e6c08a" },
-        { id: "r03", name: "\uB808\uCF54", rarity: "R", attr: "R", image: "../assets/icons/r/mercenary_03.png", glow: "rgba(255,192,98,0.32)", edge: "#e6c08a" },
-        { id: "r04", name: "\uB9C8\uC77C", rarity: "R", attr: "R", image: "../assets/icons/r/mercenary_04.png", glow: "rgba(255,192,98,0.32)", edge: "#e6c08a" },
-        { id: "r05", name: "\uB2C8\uCE74", rarity: "R", attr: "R", image: "../assets/icons/r/mercenary_05.png", glow: "rgba(255,192,98,0.32)", edge: "#e6c08a" },
-        { id: "r06", name: "\uBE0C\uB860", rarity: "R", attr: "R", image: "../assets/icons/r/mercenary_06.png", glow: "rgba(255,192,98,0.32)", edge: "#e6c08a" },
-        { id: "r07", name: "\uD0A4\uB974", rarity: "R", attr: "R", image: "../assets/icons/r/mercenary_07.png", glow: "rgba(255,192,98,0.32)", edge: "#e6c08a" },
-        { id: "r08", name: "\uC0AC\uC57C", rarity: "R", attr: "R", image: "../assets/icons/r/mercenary_08.png", glow: "rgba(255,192,98,0.32)", edge: "#e6c08a" }
+        { id: "arkel", name: "\uC544\uB974\uCF08", rarity: "SSR", attr: "D", image: "./assets/icons/01_arkel_dark.png", glow: "rgba(176,99,255,0.72)", edge: "#cc95ff" },
+        { id: "seiron", name: "\uC138\uC774\uB860", rarity: "SSR", attr: "W", image: "./assets/icons/02_seiron_water.png", glow: "rgba(86,180,255,0.72)", edge: "#86d7ff" },
+        { id: "rilmer", name: "\uB9B4\uBA54\uB974", rarity: "SSR", attr: "F", image: "./assets/icons/03_lilmer_fire.png", glow: "rgba(255,122,74,0.74)", edge: "#ffb067" },
+        { id: "dorun", name: "\uB3C4\uB8EC", rarity: "SSR", attr: "N", image: "./assets/icons/04_dorun_nature.png", glow: "rgba(126,220,88,0.72)", edge: "#b8ff8d" },
+        { id: "velka", name: "\uBCA8\uCE74", rarity: "SSR", attr: "F", image: "./assets/icons/05_belka_fire.png", glow: "rgba(255,122,74,0.74)", edge: "#ffb067" },
+        { id: "raven", name: "\uB808\uC774\uBE10", rarity: "SSR", attr: "N", image: "./assets/icons/06_raven_neutral.png", glow: "rgba(188,196,215,0.58)", edge: "#dce4f3" },
+        { id: "isel", name: "\uC774\uC140", rarity: "SSR", attr: "L", image: "./assets/icons/07_isel_light.png", glow: "rgba(255,215,114,0.74)", edge: "#fff0a6" },
+        { id: "garos", name: "\uAC00\uB85C\uC2A4", rarity: "SSR", attr: "E", image: "./assets/icons/08_garos_earth.png", glow: "rgba(188,132,74,0.70)", edge: "#e7c18d" },
+        { id: "sr01", name: "\uC138\uB77C\uD540", rarity: "SR", attr: "S", image: "./assets/icons/sr/mercenary_attr_01.png", glow: "rgba(78,166,255,0.46)", edge: "#73caff" },
+        { id: "sr02", name: "\uBE0C\uB9AD\uC2A4", rarity: "SR", attr: "S", image: "./assets/icons/sr/mercenary_attr_02.png", glow: "rgba(78,166,255,0.46)", edge: "#73caff" },
+        { id: "sr03", name: "\uB098\uC77C\uB77C", rarity: "SR", attr: "S", image: "./assets/icons/sr/mercenary_attr_03.png", glow: "rgba(78,166,255,0.46)", edge: "#73caff" },
+        { id: "sr04", name: "\uCE74\uC778", rarity: "SR", attr: "S", image: "./assets/icons/sr/mercenary_attr_04.png", glow: "rgba(78,166,255,0.46)", edge: "#73caff" },
+        { id: "sr05", name: "\uC624\uB974\uD39C", rarity: "SR", attr: "S", image: "./assets/icons/sr/mercenary_attr_05.png", glow: "rgba(78,166,255,0.46)", edge: "#73caff" },
+        { id: "sr06", name: "\uBBF8\uB9AC\uC544", rarity: "SR", attr: "S", image: "./assets/icons/sr/mercenary_attr_06.png", glow: "rgba(78,166,255,0.46)", edge: "#73caff" },
+        { id: "sr07", name: "\uD558\uC2A4\uD2B8", rarity: "SR", attr: "S", image: "./assets/icons/sr/mercenary_attr_07.png", glow: "rgba(78,166,255,0.46)", edge: "#73caff" },
+        { id: "sr08", name: "\uB85C\uC5D4", rarity: "SR", attr: "S", image: "./assets/icons/sr/mercenary_attr_08.png", glow: "rgba(78,166,255,0.46)", edge: "#73caff" },
+        { id: "r01", name: "\uD398\uB978", rarity: "R", attr: "R", image: "./assets/icons/r/mercenary_01.png", glow: "rgba(255,192,98,0.32)", edge: "#e6c08a" },
+        { id: "r02", name: "\uD1A0\uBE44\uC544", rarity: "R", attr: "R", image: "./assets/icons/r/mercenary_02.png", glow: "rgba(255,192,98,0.32)", edge: "#e6c08a" },
+        { id: "r03", name: "\uB808\uCF54", rarity: "R", attr: "R", image: "./assets/icons/r/mercenary_03.png", glow: "rgba(255,192,98,0.32)", edge: "#e6c08a" },
+        { id: "r04", name: "\uB9C8\uC77C", rarity: "R", attr: "R", image: "./assets/icons/r/mercenary_04.png", glow: "rgba(255,192,98,0.32)", edge: "#e6c08a" },
+        { id: "r05", name: "\uB2C8\uCE74", rarity: "R", attr: "R", image: "./assets/icons/r/mercenary_05.png", glow: "rgba(255,192,98,0.32)", edge: "#e6c08a" },
+        { id: "r06", name: "\uBE0C\uB860", rarity: "R", attr: "R", image: "./assets/icons/r/mercenary_06.png", glow: "rgba(255,192,98,0.32)", edge: "#e6c08a" },
+        { id: "r07", name: "\uD0A4\uB974", rarity: "R", attr: "R", image: "./assets/icons/r/mercenary_07.png", glow: "rgba(255,192,98,0.32)", edge: "#e6c08a" },
+        { id: "r08", name: "\uC0AC\uC57C", rarity: "R", attr: "R", image: "./assets/icons/r/mercenary_08.png", glow: "rgba(255,192,98,0.32)", edge: "#e6c08a" },
+        { id: "n01", name: "\uC720\uB9AC", rarity: "N", attr: "N", image: "./assets/icons/r/mercenary_01.png", glow: "rgba(129,146,182,0.20)", edge: "#9ba9c8" },
+        { id: "n02", name: "\uD14C\uC624", rarity: "N", attr: "N", image: "./assets/icons/r/mercenary_02.png", glow: "rgba(129,146,182,0.20)", edge: "#9ba9c8" },
+        { id: "n03", name: "\uB808\uB098", rarity: "N", attr: "N", image: "./assets/icons/r/mercenary_03.png", glow: "rgba(129,146,182,0.20)", edge: "#9ba9c8" },
+        { id: "n04", name: "\uBE0C\uB78C", rarity: "N", attr: "N", image: "./assets/icons/r/mercenary_04.png", glow: "rgba(129,146,182,0.20)", edge: "#9ba9c8" },
+        { id: "n05", name: "\uCE74\uC140", rarity: "N", attr: "N", image: "./assets/icons/r/mercenary_05.png", glow: "rgba(129,146,182,0.20)", edge: "#9ba9c8" },
+        { id: "n06", name: "\uB178\uC544", rarity: "N", attr: "N", image: "./assets/icons/r/mercenary_06.png", glow: "rgba(129,146,182,0.20)", edge: "#9ba9c8" },
+        { id: "n07", name: "\uD39C\uB9AD", rarity: "N", attr: "N", image: "./assets/icons/r/mercenary_07.png", glow: "rgba(129,146,182,0.20)", edge: "#9ba9c8" },
+        { id: "n08", name: "\uC2DC\uC544", rarity: "N", attr: "N", image: "./assets/icons/r/mercenary_08.png", glow: "rgba(129,146,182,0.20)", edge: "#9ba9c8" }
       ];
 
       const unitsById = Object.fromEntries(units.map((unit) => [unit.id, unit]));
       const SSR_IDS = units.filter((unit) => unit.rarity === "SSR").map((unit) => unit.id);
       const SR_IDS = units.filter((unit) => unit.rarity === "SR").map((unit) => unit.id);
       const R_IDS = units.filter((unit) => unit.rarity === "R").map((unit) => unit.id);
+      const N_IDS = units.filter((unit) => unit.rarity === "N").map((unit) => unit.id);
       const showcaseIds = ["arkel", "seiron", "rilmer", "dorun", "velka", "raven", "isel", "garos"];
       const initialOwned = {
         arkel: 1,
@@ -1199,20 +1480,22 @@
       let tokenBalance = 4;
       let gemBalance = 5000;
       let completionState = null;
+      let confirmSelectionState = null;
       let nextRowNumber = 1;
+      let totalSummonRuns = 0;
+      let totalVirtualCost = 0;
+      let totalSSRDraws = 0;
+      let summonLogs = [];
 
       const dim = document.getElementById("dim");
       const summonGrid = document.getElementById("summonGrid");
       const summonButton = document.getElementById("summonButton");
-      const sceneGemCount = document.getElementById("sceneGemCount");
-      const addSceneGemButton = document.getElementById("addSceneGemButton");
       const openManageButton = document.getElementById("openManageButton");
       const openInventoryButton = document.getElementById("openInventoryButton");
       const pendingCountBadge = document.getElementById("pendingCountBadge");
       const summonResultModal = document.getElementById("summonResultModal");
       const summonResultGrid = document.getElementById("summonResultGrid");
-      const resultGemCount = document.getElementById("resultGemCount");
-      const addResultGemButton = document.getElementById("addResultGemButton");
+      const resultCopy = document.getElementById("resultCopy");
       const resummonButton = document.getElementById("resummonButton");
       const closeSummonResultButton = document.getElementById("closeSummonResultButton");
       const manageModal = document.getElementById("manageModal");
@@ -1226,6 +1509,14 @@
       const completionName = document.getElementById("completionName");
       const completionCopy = document.getElementById("completionCopy");
       const completionConfirmButton = document.getElementById("completionConfirmButton");
+      const confirmOverlay = document.getElementById("confirmOverlay");
+      const confirmPortrait = document.getElementById("confirmPortrait");
+      const confirmName = document.getElementById("confirmName");
+      const confirmCopy = document.getElementById("confirmCopy");
+      const confirmCancelButton = document.getElementById("confirmCancelButton");
+      const confirmAcceptButton = document.getElementById("confirmAcceptButton");
+      const testPanelSummary = document.getElementById("testPanelSummary");
+      const testLogList = document.getElementById("testLogList");
 
       function createOwnedCounts() {
         const counts = {};
@@ -1241,9 +1532,10 @@
 
       function rarityRoll() {
         const roll = Math.random() * 100;
-        if (roll < 5) return "SSR";
-        if (roll < 30) return "SR";
-        return "R";
+        if (roll < 1) return "SSR";
+        if (roll < 16) return "SR";
+        if (roll < 56) return "R";
+        return "N";
       }
 
       function pick(list) {
@@ -1254,6 +1546,7 @@
         summonResultModal.classList.add("hidden");
         manageModal.classList.add("hidden");
         inventoryModal.classList.add("hidden");
+        confirmOverlay.classList.add("hidden");
         dim.classList.add("hidden");
       }
 
@@ -1285,15 +1578,9 @@
         }
       }
 
-      function canAffordSummon() {
-        return gemBalance >= 2000;
-      }
-
       function renderGemState() {
-        sceneGemCount.textContent = String(gemBalance);
-        resultGemCount.textContent = String(gemBalance);
-        summonButton.disabled = !canAffordSummon();
-        resummonButton.disabled = !canAffordSummon();
+        summonButton.disabled = false;
+        resummonButton.disabled = false;
       }
 
       function renderSummonResults() {
@@ -1301,13 +1588,15 @@
           const unit = unitsById[result.id];
           return `
             <article class="result-card ${result.rarity.toLowerCase()} ${result.rarity === "SSR" ? "result-card-appear" : ""}">
-              ${result.isNew ? '<img class="new-badge" src="../assets/ui/new-badge.png" alt="NEW" />' : ""}
+              ${result.isNew ? '<div class="new-badge" aria-label="NEW"></div>' : ""}
               <div class="result-rarity">${result.rarity}</div>
               <div class="result-card-thumb"><img src="${unit.image}" alt="${unit.name}" /></div>
               <div class="result-name">${unit.name}</div>
             </article>
           `;
         }).join("");
+        const ownedSSRCount = SSR_IDS.filter((id) => ownedCounts[id] > 0).length;
+        resultCopy.textContent = `\uC18C\uD658\uC744 \uD1B5\uD574 SSR \uB4F1\uAE09 \uC601\uC6C5 8\uBA85\uC744 \uBAA8\uB450 \uBAA8\uC73C\uB294 \uAC83\uC774 \uD604\uC7AC \uD504\uB85C\uD1A0\uD0C0\uC785\uC758 \uBAA9\uD45C\uC785\uB2C8\uB2E4. (${ownedSSRCount}/${SSR_IDS.length})`;
       }
 
       function renderDots(opened) {
@@ -1329,12 +1618,14 @@
           `;
         }
         const unit = unitsById[unitId];
+        const canFuseOnAcquire = ownedCounts[unitId] >= 1;
         return `
           <div class="slot-card ${selected ? "selected" : ""}">
-            ${isNewUnit(unitId) ? '<img class="new-badge" src="../assets/ui/new-badge.png" alt="NEW" />' : ""}
+            ${isNewUnit(unitId) ? '<div class="new-badge" aria-label="NEW"></div>' : ""}
             ${unit.rarity === "SSR" ? '<div class="slot-ssr-badge">SSR</div>' : ""}
             <div class="slot-mini"><img src="${unit.image}" alt="${unit.name}" /></div>
             <div class="slot-name">${unit.name}</div>
+            <div class="slot-upgrade"${canFuseOnAcquire ? "" : ' style="visibility:hidden"'}>${canFuseOnAcquire ? "&#54633;&#49457; &#44032;&#45733;" : "&nbsp;"}</div>
           </div>
         `;
       }
@@ -1348,7 +1639,7 @@
             <div class="row-head">
               <h2 class="row-title">${row.title}</h2>
               <div class="row-meta">
-                <span class="row-timer">48시간 남음</span>
+                <span class="row-timer">24\uC2DC\uAC04 \uB0A8\uC74C</span>
                 <span>&#51204;&#54872; &#44592;&#54924; ${2 - row.opened}&#54924;</span>
                 ${renderDots(row.opened)}
               </div>
@@ -1392,21 +1683,22 @@
       }
 
       function renderInventory() {
-        const rarityOrder = ["SSR", "SR", "R"];
+        const rarityOrder = ["SSR", "SR", "R", "N"];
         inventoryList.innerHTML = rarityOrder.map((rarity) => {
-          const owned = units
-            .filter((unit) => unit.rarity === rarity && ownedCounts[unit.id] > 0)
+          const allUnits = units
+            .filter((unit) => unit.rarity === rarity)
             .sort((a, b) => a.name.localeCompare(b.name, "ko"));
-          if (!owned.length) return "";
+          if (!allUnits.length) return "";
           return `
             <section class="inventory-section">
               <h2 class="inventory-heading">${rarity} &#48372;&#50976; &#50857;&#48337;</h2>
               <div class="inventory-grid">
-                ${owned.map((unit) => `
-                  <article class="inventory-card">
+                ${allUnits.map((unit) => `
+                  <article class="inventory-card ${ownedCounts[unit.id] > 0 ? "" : "unowned"}">
                     <div class="inventory-card-thumb"><img src="${unit.image}" alt="${unit.name}" /></div>
                     <div class="inventory-name">${unit.name}</div>
-                    <div class="inventory-count">&#48372;&#50976; ${ownedCounts[unit.id]}&#47749;</div>
+                    <div class="inventory-count">${ownedCounts[unit.id] > 0 ? `&#48372;&#50976; ${ownedCounts[unit.id]}&#47749;` : '&#48120;&#48372;&#50976;'}</div>
+                    <div class="inventory-upgrade ${ownedCounts[unit.id] >= 2 ? "" : "placeholder"}">${ownedCounts[unit.id] >= 2 ? '&#49849;&#44553; &#44032;&#45733;' : '&nbsp;'}</div>
                   </article>
                 `).join("")}
               </div>
@@ -1431,6 +1723,31 @@
         completionOverlay.classList.remove("hidden");
       }
 
+      function renderTestPanel() {
+        const ownedSSRCount = SSR_IDS.filter((id) => ownedCounts[id] > 0).length;
+        testPanelSummary.innerHTML = `
+          <div class="test-summary-row">
+            <span class="test-summary-item">${totalSummonRuns}\uD68C \uC18C\uD658</span>
+            <span class="test-summary-item">\uBE44\uC6A9 ${totalVirtualCost.toLocaleString("ko-KR")}</span>
+          </div>
+          <div class="test-summary-row">
+            <span class="test-summary-item">SSR ${totalSSRDraws}\uAC1C \uD68D\uB4DD</span>
+            <span class="test-summary-item">\uCEEC\uB809\uC158 ${ownedSSRCount}/${SSR_IDS.length}</span>
+          </div>
+        `;
+        testLogList.innerHTML = summonLogs.length
+          ? summonLogs.map((log) => `
+              <article class="test-log-entry ${log.actionType === "summon-ssr" ? "has-ssr" : ""} ${log.actionType === "reroll" ? "is-reroll" : ""} ${log.actionType === "finalize" ? "is-finalize" : ""}">
+                <div class="test-log-head">
+                  <span class="test-log-turn">${log.actionType === "reroll" ? "\uC7AC\uC120\uD0DD" : log.actionType === "finalize" ? "\uCD5C\uC885\uC120\uD0DD" : log.turn}</span>
+                  <span class="test-log-result">${log.result}</span>
+                </div>
+                <div class="test-log-main">${log.meta}</div>
+              </article>
+            `).join("")
+          : '<div class="test-log-empty">\uC544\uC9C1 \uD14C\uC2A4\uD2B8 \uB85C\uADF8\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4.<br />10\uD68C \uC18C\uD658\uC744 \uC2E4\uD589\uD558\uBA74 \uD68C\uCC28\uBCC4 \uACB0\uACFC\uAC00 \uAE30\uB85D\uB429\uB2C8\uB2E4.</div>';
+      }
+
       function renderAll() {
         renderSummonGrid();
         renderGemState();
@@ -1438,6 +1755,7 @@
         renderManageList();
         renderInventory();
         renderCompletionModal();
+        renderTestPanel();
       }
 
       function buildPendingRow(originalId) {
@@ -1456,24 +1774,52 @@
 
       function applySummonResults(results) {
         results.forEach((result) => {
+          if (result.rarity === "SSR") {
+            pendingRows.push(buildPendingRow(result.id));
+            return;
+          }
           ownedCounts[result.id] += 1;
         });
-        results.filter((result) => result.rarity === "SSR").forEach((result) => {
-          pendingRows.push(buildPendingRow(result.id));
+      }
+
+      function buildTestLogMeta() {
+        return `\uCEEC\uB809\uC158 ${SSR_IDS.filter((id) => ownedCounts[id] > 0).length}/${SSR_IDS.length} \u00B7 \uBE44\uC6A9 ${totalVirtualCost.toLocaleString("ko-KR")}`;
+      }
+
+      function pushTestLog(actionType, result, label) {
+        summonLogs.unshift({
+          turn: label || `${totalSummonRuns}\uD68C\uCC28`,
+          actionType,
+          result,
+          meta: buildTestLogMeta()
         });
       }
 
       function performTenSummon() {
-        if (!canAffordSummon()) return;
-        gemBalance -= 2000;
         const tempCounts = { ...ownedCounts };
         lastSummonResults = Array.from({ length: 10 }, () => {
           const rarity = rarityRoll();
-          const id = rarity === "SSR" ? pick(SSR_IDS) : rarity === "SR" ? pick(SR_IDS) : pick(R_IDS);
+          const id = rarity === "SSR"
+            ? pick(SSR_IDS)
+            : rarity === "SR"
+              ? pick(SR_IDS)
+              : rarity === "R"
+                ? pick(R_IDS)
+                : pick(N_IDS);
           const isNew = (tempCounts[id] || 0) === 0;
           tempCounts[id] = (tempCounts[id] || 0) + 1;
           return { id, rarity, isNew };
         });
+        totalSummonRuns += 1;
+        totalVirtualCost = totalSummonRuns * 2000;
+        const ssrResults = lastSummonResults.filter((result) => result.rarity === "SSR");
+        totalSSRDraws += ssrResults.length;
+        pushTestLog(
+          ssrResults.length > 0 ? "summon-ssr" : "summon-none",
+          ssrResults.length > 0
+            ? `${ssrResults.map((result) => unitsById[result.id].name).join(", ")} \uD68D\uB4DD`
+            : 'SSR \uD68D\uB4DD \uC5C6\uC74C'
+        );
         applySummonResults(lastSummonResults);
         renderSummonResults();
         renderAll();
@@ -1484,25 +1830,26 @@
         const index = pendingRows.findIndex((row) => row.id === rowId);
         if (index === -1) return;
         const row = pendingRows[index];
-        if (row.selectedId !== row.originalId) {
-          ownedCounts[row.originalId] = Math.max(0, ownedCounts[row.originalId] - 1);
-          ownedCounts[row.selectedId] += 1;
-        }
+        ownedCounts[row.selectedId] += 1;
         completionState = { selectedId: row.selectedId };
         pendingRows.splice(index, 1);
+        pushTestLog("finalize", unitsById[row.selectedId].name, "\uCD5C\uC885\uC120\uD0DD");
         renderAll();
+      }
+
+      function openFinalizeConfirm(rowId) {
+        const row = pendingRows.find((item) => item.id === rowId);
+        if (!row) return;
+        const unit = unitsById[row.selectedId];
+        confirmSelectionState = { rowId, selectedId: row.selectedId };
+        confirmPortrait.innerHTML = `<img src="${unit.image}" alt="${unit.name}" />`;
+        confirmName.textContent = unit.name;
+        confirmCopy.textContent = `${unit.name}\uC744(\uB97C) \uCD5C\uC885 \uC218\uB839\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?`;
+        confirmOverlay.classList.remove("hidden");
       }
 
       summonButton.addEventListener("click", performTenSummon);
       resummonButton.addEventListener("click", performTenSummon);
-      addSceneGemButton.addEventListener("click", () => {
-        gemBalance += 5000;
-        renderGemState();
-      });
-      addResultGemButton.addEventListener("click", () => {
-        gemBalance += 5000;
-        renderGemState();
-      });
       openManageButton.addEventListener("click", () => {
         renderManageList();
         openModal(manageModal);
@@ -1520,6 +1867,17 @@
         completionState = null;
         completionOverlay.classList.add("hidden");
       });
+      confirmCancelButton.addEventListener("click", () => {
+        confirmSelectionState = null;
+        confirmOverlay.classList.add("hidden");
+      });
+      confirmAcceptButton.addEventListener("click", () => {
+        if (!confirmSelectionState) return;
+        const { rowId } = confirmSelectionState;
+        confirmSelectionState = null;
+        confirmOverlay.classList.add("hidden");
+        finalizeRow(rowId);
+      });
       document.querySelectorAll("[data-close-modal]").forEach((button) => {
         button.addEventListener("click", closeAllModals);
       });
@@ -1531,12 +1889,14 @@
           tokenBalance -= 1;
           row.opened += 1;
           row.selectedId = row.candidates[row.opened - 1];
+          pushTestLog("reroll", unitsById[row.selectedId].name, "\uC7AC\uC120\uD0DD");
           renderManageList();
+          renderTestPanel();
           return;
         }
         const finalizeButton = event.target.closest("[data-finalize-row]");
         if (finalizeButton) {
-          finalizeRow(finalizeButton.dataset.finalizeRow);
+          openFinalizeConfirm(finalizeButton.dataset.finalizeRow);
           return;
         }
         const selectButton = event.target.closest("[data-select-row]");
